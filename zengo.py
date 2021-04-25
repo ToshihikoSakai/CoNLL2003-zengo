@@ -4,6 +4,11 @@ import re
 import glob
 import pathlib
 import pprint
+import sys
+
+
+args = sys.argv
+
 
 filename = "./train.txt"
 
@@ -15,11 +20,31 @@ hit = {}
 
 
 def Zengo(text,hit,k,n):
-    
+    start = k-n
+    end = k+n+1
     hit[k] = 1
-    for i in range(k-n,k+n+1):
+
+    if(start < 0):
+        start = 0
+    if(end > len(text)):
+        end = len(text)
+                
+    for i in range(start,k):
+        if(text[i] == []):
+            continue
+        if(text[i] == "\n"):
+            start = i
+
+    for i in range(k,end):
+        if(text[i] == []):
+            continue
+        if(text[i] == "\n"):
+            end = i
+    
+    for i in range(start,end):
         if(text[i] != "\n"):
             hit[i] = 1
+            
     return hit
 
 
@@ -54,9 +79,7 @@ for k,v in text.items():
 
     if(line[-1] != "O"):
         #前後n文字を残す
-        hit = Zengo(text,hit,k,2)
-
-
+        hit = Zengo(text,hit,k,int(args[1]))
 
 
 ###################
