@@ -2,7 +2,8 @@
  CoNLL2003のデータの固有表現タグの前後n文字を含むデータのみ抽出するように加工するプログラム
 
 # 使い方
+固有表現タグの前後1文字以外のOタグを削除する場合
 ```
-python zengo.py > new-text.txt
+python zengo.py 1 > new-text.txt
 
 ```
